@@ -1,0 +1,30 @@
+{
+    "title": "Play video on Dreambox",
+    "name": "playvideoondreambox",
+    "version": "0.1.0", 
+    "description": "Plays videos on the Dreambox satellite receiver.\n\nOpen a video webpage like youtube and press the dreambox play button.\n\nRequires the 'youtube-dl' executable to extract video URLs.",
+    "main": "index.js",
+    "homepage": "http://cweiske.de/playVideoOnDreambox.htm",
+    "author": "Christian Weiske (http://cweiske.de/) <cweiske@cweiske.de>",
+    "engines": {
+        "firefox": ">=38.0a1",
+        "fennec": ">=38.0a1"
+    },
+    "license": "AGPlv3+",
+    "preferences": [
+        {
+            "name": "youtubedlPath",
+            "title": "youtube-dl path",
+            "description": "Full path to youtube-dl binary",
+            "type": "string",
+            "value": "/usr/bin/youtube-dl"
+        },
+        {
+            "name": "dreamboxHost",
+            "title": "Dreambox IP/host name",
+            "description": "IP or DNS name of your dreambox",
+            "type": "string",
+            "value": "dreambox"
+        }
+    ]
+}
