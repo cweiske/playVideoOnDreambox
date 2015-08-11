@@ -2,8 +2,15 @@ var buttons = require('sdk/ui/button/action');
 var tabs = require("sdk/tabs");
 require("sdk/simple-prefs").on("", reloadPrefs);
 
+//IP or hostname of dreambox
 var dreamboxHost;
+//Full file path to "youtube-dl" binary
 var youtubedlPath;
+//dreambox web interface access token
+var dbToken;
+//number of failures fetching the access token
+var dbTokenFails = 0;
+
 reloadPrefs();
 
 function reloadPrefs()
@@ -35,7 +42,7 @@ var menuItem = contextMenu.Item({
 });
 
 function playCurrentTab(state)
-{    
+{
     console.log('active tab', tabs.activeTab.url);
     var pageUrl = tabs.activeTab.url;
     playPageUrl(pageUrl);
@@ -74,10 +81,57 @@ function playVideoOnDreambox(videoUrl)
     console.log('dreambox url: ' + dreamboxUrl);
 
     var Request = require("sdk/request").Request;
-    var latestTweetRequest = Request({
-        url: dreamboxUrl/*,
+    Request({
+        url: dreamboxUrl,
+        content: {
+            sessionid: dbToken
+        },
         onComplete: function (response) {
-            //console.error(response);
-        }*/
-    }).get();
+            if (response.status == 412) {
+                //web interface requires an access token
+                // fetch it and try to play the video again
+                fetchAccessToken(
+                    function() {
+                        playVideoOnDreambox(videoUrl);
+                    }
+                );
+            }
+        }
+    }).post();
+}
+
+/**
+ * Obtain an access token from the dreambox and store it
+ * in the global dbToken variable.
+ *
+ * @param function replayFunc Function to call when the token has
+ *                            been acquired successfully
+ */
+function fetchAccessToken(replayFunc)
+{
+    if (dbTokenFails > 0) {
+        return;
+    }
+
+    dbTokenFails++;
+    var Request = require("sdk/request").Request;
+    Request({
+        url: 'http://' + dreamboxHost + '/web/session',
+        onComplete: function (response) {
+            if (response.status != 200) {
+                return;
+            }
+            var nStart = response.text.indexOf('<e2sessionid>') + 13;
+            var nEnd   = response.text.indexOf('</e2sessionid>');
+            if (nStart == -1 || nEnd == -1) {
+                console.error('Could not parse token XML');
+                return;
+            }
+
+            dbTokenFails = 0;
+            dbToken = response.text.substring(nStart, nEnd);
+            console.error('Aquired access token: ' + dbToken);
+            replayFunc();
+        }
+    }).post();
 }

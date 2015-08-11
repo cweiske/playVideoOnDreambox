@@ -19,6 +19,14 @@ __ http://www.dream-multimedia-tv.de/dm7080-hd
 .. contents::
 
 
+Features
+========
+- Toolbar button to play the video on the current page
+- Context menu item to play the video on the linked page
+  (nice for video list; no need to access the detail page anymore)
+- Dreambox web interface access token support
+
+
 Configuration options
 =====================
 In the addons manager

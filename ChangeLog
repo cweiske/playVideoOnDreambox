@@ -1,0 +1,11 @@
+2015-08-11  Christian Weiske  <cweiske@cweiske.de>
+
+	* Add context menu entry to play the video on the linked page
+	* Add Dreambox web interface access token support
+	* Add private browsing mode support
+	* Version 0.2.0
+
+2015-08-10  Christian Weiske  <cweiske@cweiske.de>
+
+	* Initial version with a toolbar button to play the current tab's video
+	* Version 0.1.0
