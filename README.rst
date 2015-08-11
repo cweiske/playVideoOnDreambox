@@ -9,6 +9,10 @@ receiver.
 
 Works fine with a Dreambox `DM7080 HD`__.
 
+You can also right-click a link to a video page and select
+"Play linked video on Dreambox".
+That way you don't even need to open video detail pages.
+
 __ http://www.dream-multimedia-tv.de/products
 __ http://www.dream-multimedia-tv.de/dm7080-hd
 

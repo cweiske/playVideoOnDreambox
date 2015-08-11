@@ -13,18 +13,36 @@ function reloadPrefs()
     dreamboxHost  = prefs.dreamboxHost;
 }
 
+//toolbar button
 var button = buttons.ActionButton({
   id: "dreambox-play-link",
   label: "Play video on Dreambox",
   icon: "./play-32.png",
-  onClick: handleClickPlay
+  onClick: playCurrentTab
+});
+//context menu for links
+var contextMenu = require("sdk/context-menu");
+var menuItem = contextMenu.Item({
+    label:   'Play linked video on Dreambox',
+    context: contextMenu.SelectorContext('a[href]'),
+    contentScript: 'self.on("click", function(node) {' +
+                 '    self.postMessage(node.href);' +
+                 '});',
+    accesskey: 'x',
+    onMessage: function (linkUrl) {
+        playPageUrl(linkUrl);
+    }
 });
 
-function handleClickPlay(state)
+function playCurrentTab(state)
 {    
     console.log('active tab', tabs.activeTab.url);
     var pageUrl = tabs.activeTab.url;
+    playPageUrl(pageUrl);
+}
 
+function playPageUrl(pageUrl)
+{
     var child_process = require("sdk/system/child_process");
     var ytdl = child_process.spawn(youtubedlPath, ['--get-url', pageUrl]);
 
