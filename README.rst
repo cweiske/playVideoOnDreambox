@@ -39,9 +39,9 @@ Dependencies
 
 License
 =======
-``playVideoOnDreambox`` is licensed under the `AGPL v3`__ or later.
+``playVideoOnDreambox`` is licensed under the `GPL v3`__ or later.
 
-__ http://www.gnu.org/licenses/agpl.html
+__ http://www.gnu.org/licenses/gpl.html
 
 
 Homepage
