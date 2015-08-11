@@ -52,6 +52,8 @@ Source code
   http://git.cweiske.de/playVideoOnDreambox.git
 
   Mirror: https://github.com/cweiske/playVideoOnDreambox
+Firefox Add-ons site
+  https://addons.mozilla.org/de/firefox/addon/play-video-on-dreambox/
 Dreambox forum thread
   http://www.dream-multimedia-tv.de/board/index.php?page=Thread&threadID=20224
 
