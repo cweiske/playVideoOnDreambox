@@ -22,9 +22,12 @@ __ http://www.dream-multimedia-tv.de/dm7080-hd
 Features
 ========
 - Toolbar button to play the video on the current page
-- Context menu item to play the video on the linked page
-  (nice for video list; no need to access the detail page anymore)
+- Context menu item to play the video on the linked page.
+  Nice for video lists; no need to access the detail page anymore.
 - Dreambox web interface access token support
+- Supports hundreds of video sites, see the `youtube-dl site support list`__.
+
+__ http://rg3.github.io/youtube-dl/supportedsites.html
 
 
 Configuration options
