@@ -130,7 +130,7 @@ function fetchAccessToken(replayFunc)
 
             dbTokenFails = 0;
             dbToken = response.text.substring(nStart, nEnd);
-            console.error('Aquired access token: ' + dbToken);
+            console.log('Acquired access token: ' + dbToken);
             replayFunc();
         }
     }).post();
