@@ -11,6 +11,9 @@
         "fennec": ">=38.0a1"
     },
     "license": "GPLv3+",
+    "permissions": {
+        "private-browsing": true
+    },
     "preferences": [
         {
             "name": "youtubedlPath",
