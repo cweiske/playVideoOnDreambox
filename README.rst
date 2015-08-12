@@ -51,6 +51,11 @@ Dependencies
     $ apt-get install youtube-dl
 
   https://github.com/rg3/youtube-dl
+Dreambox extensions
+  The following extensions have to be installed on your Dreambox:
+
+  - Media Player (``enigma2-plugin-extensions-mediaplayer``)
+  - Webinterface (``enigma2-plugin-extensions-webinterface``)
 
 
 License
