@@ -54,21 +54,31 @@ function playPageUrl(pageUrl)
     var ytdl = child_process.spawn(youtubedlPath, ['--get-url', pageUrl]);
 
     var videoUrl = null;
+    var errors = '';
     ytdl.stdout.on('data', function (data) {
-        videoUrl = data;
-        console.log('youtube-dl URL: ' + data);
+        videoUrl = data.trim();
+        console.debug('youtube-dl URL: ' + data.trim());
     });
 
     ytdl.stderr.on('data', function (data) {
-        console.error('youtube-dl error: ' + data);
+        console.debug('youtube-dl stderr: ' + data.trim());
+        if (data.substr(0, 7) != 'WARNING') {
+            errors += "\n" + data.trim();
+        }
     });
 
     ytdl.on('close', function (code) {
         if (code == 0) {
             //we have a url. run dreambox
             playVideoOnDreambox(videoUrl);
+        } else if (code == -1) {
+            showError('youtube-dl not found');
         } else {
-            console.error('youtube-dl exited with code ' + code);
+            console.log('youtube-dl exit code ' + code);
+            showError(
+                'Failed to extract video URL with youtube-dl'
+                + errors
+            );
         }
     });
 }
@@ -87,6 +97,7 @@ function playVideoOnDreambox(videoUrl)
             sessionid: dbToken
         },
         onComplete: function (response) {
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes
             if (response.status == 412) {
                 //web interface requires an access token
                 // fetch it and try to play the video again
@@ -95,6 +106,14 @@ function playVideoOnDreambox(videoUrl)
                         playVideoOnDreambox(videoUrl);
                     }
                 );
+            } else if (response.status == 0) {
+                showError('Failed to connect to dreambox. Maybe wrong IP?');
+            } else if (response.status > 399) {
+                showError('Dreambox failed to play the movie');
+                console.error('Dreambox play response status: ' + response.status);
+            } else {
+                //all fine
+                console.log('Dreambox play response status: ' + response.status);
             }
         }
     }).post();
@@ -124,7 +143,7 @@ function fetchAccessToken(replayFunc)
             var nStart = response.text.indexOf('<e2sessionid>') + 13;
             var nEnd   = response.text.indexOf('</e2sessionid>');
             if (nStart == -1 || nEnd == -1) {
-                console.error('Could not parse token XML');
+                showError('Could not parse web interface token XML');
                 return;
             }
 
@@ -135,3 +154,30 @@ function fetchAccessToken(replayFunc)
         }
     }).post();
 }
+
+/**
+ * Show the error message in a notification popup window
+ * @link https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/notifications
+ */
+function showError(msg)
+{
+    require("sdk/notifications").notify({
+        title: "Error - Play video on Dreambox",
+        text: encodeXmlEntities(msg.trim()),
+        iconURL: "./play-32.png"
+    });
+    console.error('showError: ' + msg.trim());
+}
+
+/**
+ * Encoding XML entities is necessary on Ubuntu 14.04 with Mate 1.8.2
+ * If I don't do it, the message is empty.
+ */
+function encodeXmlEntities(str)
+{
+    return str.replace('&', '&amp;')
+        .replace('<', '&lt;')
+        .replace('>', '&gt;')
+        .replace('"', '&quot;')
+        .replace("'", '&apos;');
+};

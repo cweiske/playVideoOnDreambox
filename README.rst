@@ -26,6 +26,7 @@ Features
   Nice for video lists; no need to access the detail page anymore.
 - Dreambox web interface access token support
 - Supports hundreds of video sites, see the `youtube-dl site support list`__.
+- Errors are displayed via the operating system's notification system
 
 __ http://rg3.github.io/youtube-dl/supportedsites.html
 

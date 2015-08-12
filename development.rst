@@ -34,6 +34,14 @@ Stop current video and end dreambox mediaplayer::
  $ curl 'http://192.168.3.42/web/mediaplayercmd?command=exit'
 
 
+Debugging
+=========
+``about:config``
+
+``extensions.sdk.console.logLevel``
+  ``debug``
+
+
 
 URLs
 ====
