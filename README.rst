@@ -2,7 +2,7 @@
 Play video on Dreambox
 **********************
 
-Firefox addon (extension) that adds a "Play on Dreambox" button to the
+Firefox__ browser addon (extension) that adds a "Play on Dreambox" button to the
 toolbar.
 Pressing it plays the video of the current tab on your Dreambox__ satellite
 receiver.
@@ -13,6 +13,7 @@ You can also right-click a link to a video page and select
 "Play linked video on Dreambox".
 That way you don't even need to open video detail pages.
 
+__ https://www.mozilla.org/firefox
 __ http://www.dream-multimedia-tv.de/products
 __ http://www.dream-multimedia-tv.de/dm7080-hd
 
