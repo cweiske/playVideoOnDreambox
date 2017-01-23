@@ -1,3 +1,8 @@
+2017-01-23  Christian Weiske  <cweiske@cweiske.de>
+
+	* Filter out HLS streams as Dreambox is not able to play them
+	* Version 0.4.0
+
 2015-08-12  Christian Weiske  <cweiske@cweiske.de>
 
 	* Add notifications when an error occured
