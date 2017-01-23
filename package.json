@@ -12,7 +12,8 @@
     },
     "license": "GPLv3+",
     "permissions": {
-        "private-browsing": true
+        "private-browsing": true,
+        "multiprocess": true
     },
     "preferences": [
         {
