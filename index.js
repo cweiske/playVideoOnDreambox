@@ -51,13 +51,14 @@ function playCurrentTab(state)
 function playPageUrl(pageUrl)
 {
     var child_process = require("sdk/system/child_process");
-    var ytdl = child_process.spawn(youtubedlPath, ['--get-url', pageUrl]);
+    var ytdl = child_process.spawn(
+        youtubedlPath, ['--quiet', '--dump-json', pageUrl]
+    );
 
-    var videoUrl = null;
+    var json = '';
     var errors = '';
     ytdl.stdout.on('data', function (data) {
-        videoUrl = data.trim();
-        console.debug('youtube-dl URL: ' + data.trim());
+        json = json + data;
     });
 
     ytdl.stderr.on('data', function (data) {
@@ -68,18 +69,40 @@ function playPageUrl(pageUrl)
     });
 
     ytdl.on('close', function (code) {
-        if (code == 0) {
-            //we have a url. run dreambox
-            playVideoOnDreambox(videoUrl);
-        } else if (code == -1) {
+        if (code == -1) {
             showError('youtube-dl not found');
-        } else {
+            return
+        } else if (code != 0) {
             console.log('youtube-dl exit code ' + code);
             showError(
                 'Failed to extract video URL with youtube-dl'
                 + errors
             );
+            return;
         }
+
+        var data;
+        try {
+            data = JSON.parse(json);
+        } catch (e) {
+            showError('youtube-dl returned invalid JSON');
+            return;
+        }
+
+        var videoUrl = null;
+        data.formats.forEach(function (format) {
+            if (format.format.toLowerCase().indexOf('hls') != -1) {
+                return;
+            }
+            videoUrl = format.url;
+        });
+
+        if (videoUrl === null) {
+            showError('No video URL found in youtube-dl JSON');
+            return;
+        }
+        //we have a url. run dreambox
+        playVideoOnDreambox(videoUrl);
     });
 }
 
