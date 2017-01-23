@@ -1,0 +1,10 @@
+*.xpi
+.*
+ChangeLog
+development.rst
+development.html
+dist/
+node_modules/
+README.rst
+README.html
+
