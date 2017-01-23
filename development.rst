@@ -8,7 +8,7 @@ Commands
   Start firefox development profile
 ``../node_modules/.bin/jpm watchpost --post-url http://localhost:8888/``
   Automatically re-build ``.xpi`` file and install it in Firefox
-``../node_modules/.bin/jpm xpi``
+``../jpm-node_modules/.bin/jpm xpi``
   Build a new version. Update ``package.json`` before.
 
 
@@ -17,6 +17,10 @@ URL fetching
 Fetch video URL::
 
   $ youtube-dl --get-url https://www.youtube.com/watch?v=BRnPidrKto4
+
+Fetch all available URLs::
+
+  $ youtube-dl --quiet --dump-json https://www.youtube.com/watch?v=BRnPidrKto4
 
 
 Dreambox
@@ -33,6 +37,8 @@ Stop current video and end dreambox mediaplayer::
 
  $ curl 'http://192.168.3.42/web/mediaplayercmd?command=exit'
 
+Dreambox does not play HLS streams.
+
 
 Debugging
 =========
@@ -43,8 +49,8 @@ Debugging
 
 
 
-URLs
-====
+Links
+=====
 - https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm#Developing_without_browser_restarts
 - https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/console#Logging_Levels
 - https://developer.mozilla.org/en-US/Add-ons/SDK/Low-Level_APIs/system_child_process

@@ -52,6 +52,12 @@ Dependencies
     $ apt-get install youtube-dl
 
   https://github.com/rg3/youtube-dl
+
+  The version packaged in the Debian repository is pretty old;
+  it's better to use the recent PyPi version::
+
+    $ pip install youtube-dl
+
 Dreambox extensions
   The following extensions have to be installed on your Dreambox:
 
