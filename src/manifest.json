@@ -1,0 +1,34 @@
+{
+    "manifest_version": 2,
+    "name": "playVideoOnDreambox",
+    "version": "0.6.0",
+    "description": "Play videos from websites on your Dreambox satellite receiver",
+    "homepage_url": "https://cweiske.de/playVideoOnDreambox.htm#firefox",
+    "author": "Christian Weiske",
+    "icons": {
+        "32": "icon.png"
+    },
+    "permissions": [
+        "activeTab",
+        "menus",
+        "notifications",
+        "storage"
+    ],
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "Play video on Dreambox"
+    },
+    "background": {
+        "scripts": ["background-script.js"]
+    },
+    "options_ui": {
+        "page": "options.html",
+        "browser_style": true,
+        "chrome_style": true
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "@playvideoondreambox"
+        }
+    }
+}
